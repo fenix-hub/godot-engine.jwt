@@ -28,3 +28,5 @@ var jwt_verification: int = JWT.require(jwt_algorithm).verify(jwt)
 if jwt_verification == JWTVerifier.Exceptions.OK :
 	print("Verified!")
 ```
+
+You can also verify a GDScript created JWT [here](https://jwt.io/)
