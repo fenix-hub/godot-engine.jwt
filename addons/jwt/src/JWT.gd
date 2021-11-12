@@ -7,5 +7,5 @@ static func create() -> JWTBuilder:
 static func decode(jwt: String) -> JWTDecoder:
     return JWTDecoder.new(jwt)
 
-static func require(algorithm: JWTAlgorithm) -> JWTVerifier:
-    return JWTVerifier.new(algorithm)
+static func require(algorithm: JWTAlgorithm) -> JWTVerifierBuilder:
+    return JWTVerifierBuilder.new(algorithm)

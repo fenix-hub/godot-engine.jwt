@@ -14,46 +14,46 @@ func _init(jwt: String):
 
 
 func get_algorithm() -> String:
-    return self.header_claims[JWTClaims.Public.ALGORITHM]
+    return self.header_claims.get(JWTClaims.Public.ALGORITHM, "null")
 
 func get_type() -> String:
-    return self.header_claims[JWTClaims.Public.TYPE]
+    return self.header_claims.get(JWTClaims.Public.TYPE, "null")
 
 func get_content_type() -> String:
-    return self.header_claims[JWTClaims.Public.CONTENT_TYPE]
+    return self.header_claims.get(JWTClaims.Public.CONTENT_TYPE, "null")
 
 func get_key_id() -> String:
-    return self.header_claims[JWTClaims.Public.KEY_ID]
+    return self.header_claims.get(JWTClaims.Public.KEY_ID, "null")
 
 func get_header_claim(name: String):
-    return self.header_claims[name]
+    return self.header_claims.get(name, null)
 
 func get_header_claims() -> Dictionary:
     return self.header_claims
 
 func get_issuer() -> String:
-    return self.payload_claims[JWTClaims.Public.ISSUER]
+    return self.payload_claims.get(JWTClaims.Public.ISSUER, "null")
 
 func get_subject() -> String:
-    return self.payload_claims[JWTClaims.Public.SUBJECT]
+    return self.payload_claims.get(JWTClaims.Public.SUBJECT, "null")
 
 func get_audience() -> PoolStringArray:
-    return self.payload_claims[JWTClaims.Public.AUDIENCE]
+    return self.payload_claims.get(JWTClaims.Public.AUDIENCE, "null")
 
 func get_expires_at() -> int:
-    return self.payload_claims[JWTClaims.Public.EXPRIES_AT]
+    return self.payload_claims.get(JWTClaims.Public.EXPRIES_AT, -1)
 
 func get_not_before() -> int:
-    return self.payload_claims[JWTClaims.Public.NOT_BEFORE]
+    return self.payload_claims.get(JWTClaims.Public.NOT_BEFORE, -1)
 
 func get_issued_at() -> int:
-    return self.payload_claims[JWTClaims.Public.ISSUED_AT]
+    return self.payload_claims.get(JWTClaims.Public.ISSUED_AT, -1)
 
 func get_id() -> String:
-    return self.payload_claims[JWTClaims.Public.JWT_ID]
+    return self.payload_claims.get(JWTClaims.Public.JWT_ID, "null")
 
 func get_claim(name: String):
-    return self.payload_claims[name]
+    return self.payload_claims.get(name, "null")
 
 func get_claims() -> Dictionary:
     return self.payload_claims
