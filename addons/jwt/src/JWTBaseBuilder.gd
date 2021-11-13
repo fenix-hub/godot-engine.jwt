@@ -1,7 +1,6 @@
 extends Reference
 class_name JWTBaseBuilder
 
-
 func with_header(header_claims: Dictionary) -> JWTBaseBuilder:
     self.header_claims = header_claims
     return self

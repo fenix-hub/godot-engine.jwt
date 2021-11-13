@@ -36,6 +36,6 @@ func sign(algorithm: JWTAlgorithm = null) -> String:
     with_algorithm(algorithm.get_name())
     var header: String = JWTUtils.base64URL_encode(JSON.print(self.header_claims).to_utf8())
     var payload: String = JWTUtils.base64URL_encode(JSON.print(self.payload_claims).to_utf8())
-    var signature_bytes: PoolByteArray = crypto.hmac_digest(self.algorithm._hash, self.algorithm._secret.to_utf8(), (header+"."+payload).to_utf8())
+    var signature_bytes: PoolByteArray = algorithm.sign(header+"."+payload)
     var signature: String = JWTUtils.base64URL_encode(signature_bytes)
     return "%s.%s.%s" % [header, payload, signature]

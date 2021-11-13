@@ -3,8 +3,8 @@ JSON Web Token library for Godot Engine written in GDScript
 
 ## Create JWT
 ```gdscript
-var secret: String = "<your secret token>"
-var jwt_algorithm: JWTAlgorithm = JWTAlgorithm.new(HashingContext.HASH_SHA256, secret)
+var secret: String = JWTAlgorithmBuilder.random_secret(5)
+var jwt_algorithm: JWTAlgorithm = JWTAlgorithmBuilder.HS256(secret)
 var jwt_builder: JWTBuilder = JWT.create() \
 .with_expires_at(OS.get_unix_time()) \
 .with_issuer("Godot") \
@@ -26,7 +26,7 @@ print(JWTUtils.base64URL_decode(jwt_decoder.get_payload()))
 ```gdscript
 var jwt: String = "<a jwt>"
 var secret: String = "<your secret token>"
-var jwt_algorithm: JWTAlgorithm = JWTAlgorithm.new(HashingContext.HASH_SHA256, secret)
+var jwt_algorithm: JWTAlgorithm = JWTAlgorithmBuilder.HS256(secret)
 var jwt_verifier: JWTVerifier = JWT.require(jwt_algorithm) \
 .with_claim("my-claim","my-value") \
 .build() # Reusable Verifier
@@ -41,3 +41,8 @@ else:
 JWTUtils.base64URL_encode(bytes: PoolByteArray) -> String
 JWTUtils.base64URL_decode(string: String) -> String
 ```
+
+#### Supported Algorithms
+- [x] HS1 (HMAC with SHA1)
+- [x] HS256 (HMAC with SHA256)
+- [x] RS256 (RSA with SHA256)
