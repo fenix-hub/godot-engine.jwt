@@ -1,8 +1,8 @@
 extends Reference
 class_name JWT
 
-static func create() -> JWTBuilder:
-    return JWTBuilder.new()
+static func create(algorithm: JWTAlgorithm = null, header_claims: Dictionary = {}, payload_claims: Dictionary = {}) -> JWTBuilder:
+    return JWTBuilder.new(algorithm, header_claims, payload_claims)
 
 static func decode(jwt: String) -> JWTDecoder:
     return JWTDecoder.new(jwt)
