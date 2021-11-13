@@ -2,9 +2,11 @@ extends Reference
 class_name JWTVerifier
 
 enum Exceptions {
-    OK = 0,
+    OK,
+    INVALID_HEADER,
+    INVALID_PAYLOAD,
     ALGORITHM_MISMATCHING,
-    SIGNATURE_VERIFICATION,
+    INVALID_SIGNATURE,
     TOKEN_EXPIRED,
     CLAIM_NOT_VALID
    }
@@ -79,10 +81,20 @@ func assert_valid_date_claim(date: int, leeway: int, should_be_future: bool) -> 
     if should_be_future: return (self.clock - leeway) < date
     else: return (self.clock + leeway) > date
 
+func assert_valid_header(jwt_decoder: JWTDecoder) -> bool:
+    self.exception = "The header is empty or invalid."
+    return not jwt_decoder.header_claims.empty()    
+
+func assert_valid_payload(jwt_decoder: JWTDecoder) -> bool:
+    self.exception = "The payload is empty or invalid."
+    return not jwt_decoder.payload_claims.empty()
+
 func verify(jwt: String) -> int:
     self.jwt_decoder = JWTDecoder.new(jwt)
-    if not (verify_algorithm(self.jwt_decoder, algorithm)): return Exceptions.ALGORITHM_MISMATCHING
-    if not (verify_signature(self.jwt_decoder)): return Exceptions.SIGNATURE_VERIFICATION
-    if not (verify_claim_values(self.jwt_decoder, self.claims)): return Exceptions.CLAIM_NOT_VALID
+    if not assert_valid_header(self.jwt_decoder): return Exceptions.INVALID_HEADER
+    if not assert_valid_payload(self.jwt_decoder): return Exceptions.INVALID_PAYLOAD 
+    if not verify_algorithm(self.jwt_decoder, algorithm): return Exceptions.ALGORITHM_MISMATCHING
+    if not verify_signature(self.jwt_decoder): return Exceptions.INVALID_SIGNATURE
+    if not verify_claim_values(self.jwt_decoder, self.claims): return Exceptions.CLAIM_NOT_VALID
     self.exception = ""
     return Exceptions.OK
