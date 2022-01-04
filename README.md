@@ -72,8 +72,8 @@ print(JWTUtils.base64URL_decode(jwt_decoder.get_payload()))
 
 ### JWT Utils
 ```gdscript
-JWTUtils.base64URL_encode(bytes: PackedByteArray) -> String
-JWTUtils.base64URL_decode(string: String) -> PackedByteArray
+JWTUtils.base64URL_encode(bytes: PoolByteArray) -> String
+JWTUtils.base64URL_decode(string: String) -> PoolByteArray
 ```
 
 #### Supported Algorithms
