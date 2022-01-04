@@ -5,6 +5,7 @@ scn/
 project.godot
 icon.png
 *.import
+.vscode
 
 # Godot-specific ignores
 .import/

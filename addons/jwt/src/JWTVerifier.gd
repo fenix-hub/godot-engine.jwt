@@ -1,7 +1,7 @@
 extends Reference
 class_name JWTVerifier
 
-enum Exceptions {
+enum JWTExceptions {
     OK,
     INVALID_HEADER,
     INVALID_PAYLOAD,
@@ -91,10 +91,10 @@ func assert_valid_payload(jwt_decoder: JWTDecoder) -> bool:
 
 func verify(jwt: String) -> int:
     self.jwt_decoder = JWTDecoder.new(jwt)
-    if not assert_valid_header(self.jwt_decoder): return Exceptions.INVALID_HEADER
-    if not assert_valid_payload(self.jwt_decoder): return Exceptions.INVALID_PAYLOAD 
-    if not verify_algorithm(self.jwt_decoder, algorithm): return Exceptions.ALGORITHM_MISMATCHING
-    if not verify_signature(self.jwt_decoder): return Exceptions.INVALID_SIGNATURE
-    if not verify_claim_values(self.jwt_decoder, self.claims): return Exceptions.CLAIM_NOT_VALID
+    if not assert_valid_header(self.jwt_decoder): return JWTExceptions.INVALID_HEADER
+    if not assert_valid_payload(self.jwt_decoder): return JWTExceptions.INVALID_PAYLOAD 
+    if not verify_algorithm(self.jwt_decoder, algorithm): return JWTExceptions.ALGORITHM_MISMATCHING
+    if not verify_signature(self.jwt_decoder): return JWTExceptions.INVALID_SIGNATURE
+    if not verify_claim_values(self.jwt_decoder, self.claims): return JWTExceptions.CLAIM_NOT_VALID
     self.exception = ""
-    return Exceptions.OK
+    return JWTExceptions.OK

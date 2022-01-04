@@ -7,8 +7,8 @@ var payload_claims: Dictionary = {}
 
 func _init(jwt: String):
     self.parts = jwt.split(".")
-    var header: String = JWTUtils.base64URL_decode(self.parts[0])
-    var payload: String = JWTUtils.base64URL_decode(self.parts[1])
+    var header: PoolByteArray = JWTUtils.base64URL_decode(self.parts[0])
+    var payload: PoolByteArray = JWTUtils.base64URL_decode(self.parts[1])
     self.header_claims = _parse_json(header)
     self.payload_claims = _parse_json(payload)
 
