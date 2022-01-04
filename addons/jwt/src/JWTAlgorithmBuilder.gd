@@ -3,7 +3,7 @@ class_name JWTAlgorithmBuilder
 
 
 static func random_secret(length: int = 10) -> String:
-	return Crypto.new().generate_random_bytes(10).get_string_from_utf8()
+	return Crypto.new().generate_random_bytes(length).get_string_from_utf8()
 
 
 static func HSA1(secret: String) -> JWTAlgorithm:
