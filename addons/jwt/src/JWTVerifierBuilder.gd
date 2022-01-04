@@ -4,7 +4,7 @@ class_name JWTVerifierBuilder
 var algorithm: JWTAlgorithm
 var claims: Dictionary = {}
 var leeway: int = 0
-var ignore_issued_at: bool = false
+var _ignore_issued_at: bool = false
 
 func _init(algorithm: JWTAlgorithm):
     self.algorithm = algorithm
@@ -49,8 +49,8 @@ func accept_issued_at(leeway: int) -> JWTVerifierBuilder:
     with_issued_at(leeway)
     return self
 
-func ignore_issued_at() -> JWTVerifierBuilder:
-    self.ignore_issued_at = true
+func _ignore_issued_at(v: bool = true) -> JWTVerifierBuilder:
+    self._ignore_issued_at = v
     return self
 
 func with_claim_presence(claim_name: String) -> JWTVerifierBuilder:
@@ -64,7 +64,7 @@ func _add_leeway() -> void:
         claims[JWTClaims.Public.NOT_BEFORE] = self.leeway
     if (not claims.has(JWTClaims.Public.ISSUED_AT)):
         claims[JWTClaims.Public.ISSUED_AT] = self.leeway
-    if (ignore_issued_at):
+    if (_ignore_issued_at):
         claims.erase(JWTClaims.Public.ISSUED_AT)
     
 func build(clock: int = OS.get_unix_time()) -> JWTVerifier:

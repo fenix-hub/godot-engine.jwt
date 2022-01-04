@@ -8,10 +8,12 @@ var header_claims: Dictionary = { alg = "", typ = "JWT" }
 var payload_claims: Dictionary
 var secret: String
 
-func _init(algorithm: JWTAlgorithm = null, header_claims: Dictionary = {}, payload_claims: Dictionary = {}):
-    if algorithm != null: self.algorithm = algorithm
-    if not header_claims.empty(): self.header_claims = header_claims
-    if not payload_claims.empty(): self.payload_claims = payload_claims
+func _init(algorithm_param: JWTAlgorithm = null, header_claims_param: Dictionary = {}, payload_claims_param: Dictionary = {}):
+	if not header_claims_param.empty(): self.header_claims = header_claims_param
+	if not payload_claims_param.empty(): self.payload_claims = payload_claims_param
+	if algorithm_param != null:
+		self.algorithm = algorithm_param
+		self.header_claims.alg = self.algorithm.get_name()
 
 func add_claim(name: String, value) -> void:
     match typeof(value):
