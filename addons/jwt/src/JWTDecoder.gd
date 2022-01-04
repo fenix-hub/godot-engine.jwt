@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name JWTDecoder
 
 var parts: Array = []
@@ -7,16 +7,16 @@ var payload_claims: Dictionary = {}
 
 func _init(jwt: String):
     self.parts = jwt.split(".")
-    var header: String = JWTUtils.base64URL_decode(self.parts[0])
-    var payload: String = JWTUtils.base64URL_decode(self.parts[1])
-    self.header_claims = _parse_json(header)
-    self.payload_claims = _parse_json(payload)
+    var header: PackedByteArray = JWTUtils.base64URL_decode(self.parts[0])
+    var payload: PackedByteArray = JWTUtils.base64URL_decode(self.parts[1])
+    self.header_claims = _parse_json(header.get_string_from_utf8())
+    self.payload_claims = _parse_json(payload.get_string_from_utf8())
 
 func _parse_json(field) -> Dictionary:
-    var parse_result: JSONParseResult = JSON.parse(field)
-    if parse_result.error != OK:
+    var parse_result = JSON.new()
+    if parse_result.parse(field) != OK:
         return {}
-    return parse_result.result
+    return parse_result.get_data()
 
 func get_algorithm() -> String:
     return self.header_claims.get(JWTClaims.Public.ALGORITHM, "null")
@@ -42,7 +42,7 @@ func get_issuer() -> String:
 func get_subject() -> String:
     return self.payload_claims.get(JWTClaims.Public.SUBJECT, "null")
 
-func get_audience() -> PoolStringArray:
+func get_audience() -> PackedByteArray:
     return self.payload_claims.get(JWTClaims.Public.AUDIENCE, "null")
 
 func get_expires_at() -> int:

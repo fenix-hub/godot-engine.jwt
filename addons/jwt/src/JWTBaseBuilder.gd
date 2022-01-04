@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name JWTBaseBuilder
 
 func with_header(header_claims: Dictionary) -> JWTBaseBuilder:
@@ -25,7 +25,7 @@ func with_subject(subject: String) -> JWTBaseBuilder:
     add_claim(JWTClaims.Public.SUBJECT, subject)
     return self
 
-func with_audience(audience: PoolStringArray) -> JWTBaseBuilder:
+func with_audience(audience: PackedStringArray) -> JWTBaseBuilder:
     add_claim(JWTClaims.Public.AUDIENCE, audience)
     return self
 

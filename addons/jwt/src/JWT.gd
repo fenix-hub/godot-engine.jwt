@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name JWT
 
 static func create(algorithm: JWTAlgorithm = null, header_claims: Dictionary = {}, payload_claims: Dictionary = {}) -> JWTBuilder:
