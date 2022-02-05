@@ -12,8 +12,8 @@ func _init(jwt: String):
     self.header_claims = _parse_json(header)
     self.payload_claims = _parse_json(payload)
 
-func _parse_json(field) -> Dictionary:
-    var parse_result: JSONParseResult = JSON.parse(field)
+func _parse_json(field: PoolByteArray) -> Dictionary:
+    var parse_result: JSONParseResult = JSON.parse(field.get_string_from_utf8())
     if parse_result.error != OK:
         return {}
     return parse_result.result
