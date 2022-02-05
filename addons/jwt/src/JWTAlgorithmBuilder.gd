@@ -2,12 +2,12 @@ extends Reference
 class_name JWTAlgorithmBuilder
 
 static func random_secret(length: int = 10) -> String:
-    return Crypto.new().generate_random_bytes(length).get_string_from_utf8()
+    return Crypto.new().generate_random_bytes(length).get_string_from_ascii()
 
 static func HSA1(secret: String) -> JWTAlgorithm:
     var algorithm: JWTAlgorithm = JWTAlgorithm.new()
     algorithm._secret = secret
-    algorithm._hash = JWTAlgorithm.Type.HMAC1
+    algorithm._alg = JWTAlgorithm.Type.HMAC1
     return algorithm
 
 static func HS1(secret: String) -> JWTAlgorithm:
@@ -16,7 +16,7 @@ static func HS1(secret: String) -> JWTAlgorithm:
 static func HSA256(secret: String) -> JWTAlgorithm:
     var algorithm: JWTAlgorithm = JWTAlgorithm.new()
     algorithm._secret = secret
-    algorithm._hash = JWTAlgorithm.Type.HMAC256
+    algorithm._alg = JWTAlgorithm.Type.HMAC256
     return algorithm
 
 static func HS256(secret: String) -> JWTAlgorithm:
