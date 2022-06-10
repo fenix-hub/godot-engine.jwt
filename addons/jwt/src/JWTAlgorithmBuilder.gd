@@ -26,6 +26,7 @@ static func RSA256(public_key: CryptoKey, private_key: CryptoKey) -> JWTAlgorith
     var algorithm: JWTAlgorithm = JWTAlgorithm.new()
     algorithm._public_crypto = public_key
     algorithm._private_crypto = private_key
+    algorithm._alg = JWTAlgorithm.Type.RSA256
     return algorithm
 
 static func RS256(public_key: CryptoKey, private_key: CryptoKey) -> JWTAlgorithm:
