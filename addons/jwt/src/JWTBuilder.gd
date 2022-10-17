@@ -17,7 +17,7 @@ func _init(algorithm_param: JWTAlgorithm = null, header_claims_param: Dictionary
 
 func add_claim(name: String, value) -> void:
     match typeof(value):
-        TYPE_ARRAY, TYPE_STRING_ARRAY: 
+        TYPE_ARRAY, TYPE_PACKED_STRING_ARRAY: 
             if value.size() == 0 : 
                 self.payload_claims.erase(name)
                 return
