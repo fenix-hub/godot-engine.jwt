@@ -11,7 +11,7 @@ func _init(algorithm: JWTAlgorithm):
 
 func add_claim(name: String, value) -> void:
     match typeof(value):
-        TYPE_ARRAY, TYPE_STRING_ARRAY: 
+        TYPE_ARRAY, TYPE_PACKED_STRING_ARRAY: 
             if value.size() == 0 : 
                 self.claims.erase(name)
                 return
