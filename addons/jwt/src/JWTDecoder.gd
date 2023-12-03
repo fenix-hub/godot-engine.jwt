@@ -16,7 +16,15 @@ func _parse_json(field) -> Dictionary:
     var parse_result = JSON.new()
     if parse_result.parse(field) != OK:
         return {}
-    return parse_result.get_data()
+    var data = parse_result.get_data()
+    _maybe_pack_array(data, JWTClaims.Public.AUDIENCE)
+    return data
+ 
+ func _maybe_pack_array(dict, key):
+    if !dict.has(key):
+        return
+    if typeof(dict[key]) == TYPE_ARRAY:
+        dict[key] = PackedStringArray(dict[key])
 
 func get_algorithm() -> String:
     return self.header_claims.get(JWTClaims.Public.ALGORITHM, "null")
