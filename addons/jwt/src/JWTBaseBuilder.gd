@@ -31,7 +31,7 @@ func with_audience(audience: PackedStringArray) -> JWTBaseBuilder:
 
 # Expires At in UNIX time (OS.get_unix_time())
 func with_expires_at(expires_at: int) -> JWTBaseBuilder:
-    add_claim(JWTClaims.Public.EXPRIES_AT, expires_at)
+    add_claim(JWTClaims.Public.EXPIRES_AT, expires_at)
     return self
 
 # Not Before in UNIX time (OS.get_unix_time())

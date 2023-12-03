@@ -12,7 +12,7 @@ class Public:
     #   Payload
     const ISSUER: String = "iss"
     const SUBJECT: String = "sub"
-    const EXPRIES_AT: String = "exp"
+    const EXPIRES_AT: String = "exp"
     const NOT_BEFORE: String = "nbf"
     const ISSUED_AT: String = "iat"
     const JWT_ID: String = "jti"
