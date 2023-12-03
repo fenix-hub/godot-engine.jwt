@@ -66,7 +66,7 @@ func verify_claim_values(jwt_decoder: JWTDecoder, expected_claims: Dictionary) -
                     return false
     return true
 
-func assert_claim_present(jew_decoder: JWTDecoder, claim: String) -> bool:
+func assert_claim_present(jwt_decoder: JWTDecoder, claim: String) -> bool:
     return jwt_decoder.get_claims().has(claim)
 
 func assert_claim_value(jwt_decoder: JWTDecoder, claim: String) -> bool:
