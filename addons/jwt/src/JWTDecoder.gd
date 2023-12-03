@@ -46,7 +46,7 @@ func get_audience() -> PackedByteArray:
     return self.payload_claims.get(JWTClaims.Public.AUDIENCE, "null")
 
 func get_expires_at() -> int:
-    return self.payload_claims.get(JWTClaims.Public.EXPRIES_AT, -1)
+    return self.payload_claims.get(JWTClaims.Public.EXPIRES_AT, -1)
 
 func get_not_before() -> int:
     return self.payload_claims.get(JWTClaims.Public.NOT_BEFORE, -1)
