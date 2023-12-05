@@ -20,7 +20,7 @@ func _parse_json(field) -> Dictionary:
     _maybe_pack_array(data, JWTClaims.Public.AUDIENCE)
     return data
  
- func _maybe_pack_array(dict, key):
+func _maybe_pack_array(dict, key):
     if !dict.has(key):
         return
     if typeof(dict[key]) == TYPE_ARRAY:
