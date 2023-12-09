@@ -11,16 +11,16 @@ enum JWTExceptions {
     CLAIM_NOT_VALID
    }
 
-var jwt_decoder: JWTDecoder
-var algorithm: JWTAlgorithm
-var claims: Dictionary
-var clock: int
+var _jwt_decoder: JWTDecoder
+var _algorithm: JWTAlgorithm
+var _claims: Dictionary
+var _clock: int
 var exception: String
 
 func _init(algorithm: JWTAlgorithm, claims: Dictionary, clock: int):
-    self.algorithm = algorithm
-    self.claims = claims
-    self.clock = clock
+    self._algorithm = algorithm
+    self._claims = claims
+    self._clock = clock
 
 func verify_algorithm(jwt_decoder: JWTDecoder, algorithm: JWTAlgorithm) -> bool:
     self.exception = "The provided Algorithm doesn't match the one defined in the JWT's Header."
@@ -28,7 +28,7 @@ func verify_algorithm(jwt_decoder: JWTDecoder, algorithm: JWTAlgorithm) -> bool:
 
 func verify_signature(jwt_decoder: JWTDecoder) -> bool:
     self.exception = "The provided Algorithm doesn't match the one used to sign the JWT."
-    return algorithm.verify(jwt_decoder)
+    return _algorithm.verify(jwt_decoder)
 
 func verify_claim_values(jwt_decoder: JWTDecoder, expected_claims: Dictionary) -> bool:
     for claim in expected_claims.keys(): 
@@ -74,12 +74,12 @@ func assert_claim_value(jwt_decoder: JWTDecoder, claim: String) -> bool:
     match typeof(jwt_decoder.get_claims().get(claim)):
         TYPE_STRING: valid_value = (jwt_decoder.get_claims().get(claim) != "" and jwt_decoder.get_claims().get(claim) != "null")
         TYPE_INT: valid_value = (jwt_decoder.get_claims().get(claim) >= 0)
-    return (jwt_decoder.get_claims().get(claim) != null and valid_value and jwt_decoder.get_claims().get(claim) == self.claims.get(claim))
+    return (jwt_decoder.get_claims().get(claim) != null and valid_value and jwt_decoder.get_claims().get(claim) == self._claims.get(claim))
 
 func assert_valid_date_claim(date: int, leeway: int, should_be_future: bool) -> bool:
     if date == null: return true
-    if should_be_future: return (self.clock - leeway) < date
-    else: return (self.clock + leeway) > date
+    if should_be_future: return (self._clock - leeway) < date
+    else: return (self._clock + leeway) > date
 
 func assert_valid_header(jwt_decoder: JWTDecoder) -> bool:
     self.exception = "The header is empty or invalid."
@@ -90,11 +90,11 @@ func assert_valid_payload(jwt_decoder: JWTDecoder) -> bool:
     return not jwt_decoder.payload_claims.is_empty()
 
 func verify(jwt: String) -> JWTExceptions:
-    self.jwt_decoder = JWTDecoder.new(jwt)
-    if not assert_valid_header(self.jwt_decoder): return JWTExceptions.INVALID_HEADER
-    if not assert_valid_payload(self.jwt_decoder): return JWTExceptions.INVALID_PAYLOAD 
-    if not verify_algorithm(self.jwt_decoder, algorithm): return JWTExceptions.ALGORITHM_MISMATCHING
-    if not verify_signature(self.jwt_decoder): return JWTExceptions.INVALID_SIGNATURE
-    if not verify_claim_values(self.jwt_decoder, self.claims): return JWTExceptions.CLAIM_NOT_VALID
+    self._jwt_decoder = JWTDecoder.new(jwt)
+    if not assert_valid_header(self._jwt_decoder): return JWTExceptions.INVALID_HEADER
+    if not assert_valid_payload(self._jwt_decoder): return JWTExceptions.INVALID_PAYLOAD 
+    if not verify_algorithm(self._jwt_decoder, _algorithm): return JWTExceptions.ALGORITHM_MISMATCHING
+    if not verify_signature(self._jwt_decoder): return JWTExceptions.INVALID_SIGNATURE
+    if not verify_claim_values(self._jwt_decoder, self._claims): return JWTExceptions.CLAIM_NOT_VALID
     self.exception = ""
     return JWTExceptions.OK
