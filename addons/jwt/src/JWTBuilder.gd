@@ -3,7 +3,7 @@ class_name JWTBuilder
 
 var crypto: Crypto = Crypto.new()
 
-var algorithm: JWTAlgorithm
+var _algorithm: JWTAlgorithm
 var header_claims: Dictionary = { alg = "", typ = "JWT" }
 var payload_claims: Dictionary
 var secret: String
@@ -12,8 +12,8 @@ func _init(algorithm_param: JWTAlgorithm = null, header_claims_param: Dictionary
     if not header_claims_param.is_empty(): self.header_claims = header_claims_param
     if not payload_claims_param.is_empty(): self.payload_claims = payload_claims_param
     if algorithm_param != null:
-        self.algorithm = algorithm_param
-        self.header_claims.alg = self.algorithm.get_name()
+        self._algorithm = algorithm_param
+        self.header_claims.alg = self._algorithm.get_name()
 
 func add_claim(name: String, value) -> void:
     match typeof(value):
@@ -33,7 +33,7 @@ func add_claim(name: String, value) -> void:
 
 
 func sign(algorithm: JWTAlgorithm = null) -> String:
-    if algorithm != null: self.algorithm = algorithm
+    if algorithm != null: self._algorithm = algorithm
     assert(algorithm != null, "Can't sign a JWT without an Algorithm")
     with_algorithm(algorithm.get_name())
     var header_serializer : JSON = JSON.new()
