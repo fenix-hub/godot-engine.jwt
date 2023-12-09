@@ -57,5 +57,5 @@ func with_payload(claims: Dictionary) -> JWTBaseBuilder:
         add_claim(claim, claims[claim])
     return self
 
-func add_claim(claim_name: String, claim_value) -> void:
+func add_claim(_claim_name: String, _claim_value) -> void:
     return
