@@ -50,7 +50,7 @@ func accept_issued_at(leeway: int) -> JWTVerifierBuilder:
     return self
 
 func ignore_issued_at(v: bool = true) -> JWTVerifierBuilder:
-    self._ignore_issued_at = true
+    self._ignore_issued_at = v
     return self
 
 func with_claim_presence(claim_name: String) -> JWTVerifierBuilder:
