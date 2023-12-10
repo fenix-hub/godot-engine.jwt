@@ -1,10 +1,10 @@
-# Godot Engine GDScript JWT  
-JSON Web Token library for Godot Engine written in GDScript 
+# Godot Engine GDScript JWT
+JSON Web Token library for Godot Engine written in GDScript
 
 ## Create HS256 JWT
 ```gdscript
 var secret: String = JWTAlgorithmBuilder.random_secret(5)
-var jwt_algorithm: JWTAlgorithm = JWTAlgorithmBuilder.HS256(secret)
+var jwt_algorithm: JWTAlgorithm = JWTAlgorithm.HS256.new(secret)
 var jwt_builder: JWTBuilder = JWT.create() \
 .with_expires_at(Time.get_unix_time_from_system()) \
 .with_issuer("Godot") \
@@ -16,7 +16,7 @@ var jwt: String = jwt_builder.sign(jwt_algorithm)
 ```gdscript
 var jwt: String = "<a jwt>"
 var secret: String = "<your secret token>"
-var jwt_algorithm: JWTAlgorithm = JWTAlgorithmBuilder.HS256(secret)
+var jwt_algorithm: JWTAlgorithm = JWTAlgorithm.HS256.new(secret)
 var jwt_verifier: JWTVerifier = JWT.require(jwt_algorithm) \
     .with_claim("my-claim","my-value") \
     .build() # Reusable Verifier
@@ -33,7 +33,7 @@ var private_key : CryptoKey = crypto.generate_rsa(4096)
 var public_key : CryptoKey = CryptoKey.new()
 public_key.load_from_string(private_key.save_to_string(true), true)
 
-var jwt_algorithm: JWTAlgorithm = JWTAlgorithmBuilder.RS256(public_key, private_key)
+var jwt_algorithm: JWTAlgorithm = JWTAlgorithm.RS256.new(public_key, private_key)
 var jwt_builder: JWTBuilder = JWT.create() \
     .with_expires_at(Time.get_unix_time_from_system()) \
     .with_issuer("Godot") \
@@ -49,7 +49,7 @@ private_key.load_from_string("<your private key PEM string>", false)
 public_key.load_from_string("<your public key PEM string>", true)
 
 var jwt: String = "<a jwt>"
-var jwt_algorithm: JWTAlgorithm = JWTAlgorithmBuilder.RS256(public_key)
+var jwt_algorithm: JWTAlgorithm = JWTAlgorithm.RS256.new(public_key)
 var jwt_verifier: JWTVerifier = JWT.require(jwt_algorithm) \
     .with_claim("id","someid") \
     .build() # Reusable Verifier
@@ -76,6 +76,6 @@ JWTUtils.base64URL_decode(string: String) -> PackedByteArray
 ```
 
 #### Supported Algorithms
-- [x] HS1 (HMAC with SHA1)
+- [x] HSA1 (HMAC with SHA1)
 - [x] HS256 (HMAC with SHA256)
 - [x] RS256 (RSA with SHA256)
