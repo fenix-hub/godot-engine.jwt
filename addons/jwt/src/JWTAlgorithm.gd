@@ -39,7 +39,7 @@ class HSA1:
 		return jwt.parts[2] == JWTUtils.base64URL_encode(signature_bytes)
 
 
-class HSA256:
+class HS256:
 	extends JWTAlgorithm
 	var _secret: PackedByteArray
 
@@ -59,7 +59,7 @@ class HSA256:
 		return jwt.parts[2] == JWTUtils.base64URL_encode(signature_bytes)
 
 
-class RSA256:
+class RS256:
 	extends JWTAlgorithm
 
 	var _public_key: CryptoKey
