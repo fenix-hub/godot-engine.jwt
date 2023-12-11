@@ -3,7 +3,7 @@ JSON Web Token library for Godot Engine written in GDScript
 
 ## Create HS256 JWT
 ```gdscript
-var secret: String = JWTAlgorithmBuilder.random_secret(5)
+var secret: String = Crypto.new().generate_random_bytes(5).get_string_from_utf8()
 var jwt_algorithm: JWTAlgorithm = JWTAlgorithm.HS256.new(secret)
 var jwt_builder: JWTBuilder = JWT.create() \
 .with_expires_at(Time.get_unix_time_from_system()) \
