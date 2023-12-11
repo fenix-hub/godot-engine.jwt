@@ -118,12 +118,12 @@ func assert_valid_date_claim(date: int, leeway: int, should_be_future: bool) -> 
 
 func assert_valid_header(jwt_decoder: JWTDecoder) -> bool:
 	self.exception = "The header is empty or invalid."
-	return not jwt_decoder.header_claims.is_empty()
+	return not jwt_decoder.get_header_claims().is_empty()
 
 
 func assert_valid_payload(jwt_decoder: JWTDecoder) -> bool:
 	self.exception = "The payload is empty or invalid."
-	return not jwt_decoder.payload_claims.is_empty()
+	return not jwt_decoder.get_claims().is_empty()
 
 
 func verify(jwt: String) -> JWTExceptions:
