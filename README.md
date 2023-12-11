@@ -64,7 +64,7 @@ else:
 var jwt: String = "<a jwt>"
 var jwt_decoder: JWTDecoder = JWT.decode(jwt)
 # Get the JWT as an Array
-print("%s.%s.%s" % jwt_decoder.parts)
+print("%s.%s.%s" % [jwt_decoder.get_header(), jwt_decoder.get_payload(), jwt.decoder.get_signature()])
 # Decode a specific part
 print(JWTUtils.base64URL_decode(jwt_decoder.get_payload()))
 ```
