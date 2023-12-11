@@ -6,7 +6,6 @@ var crypto: Crypto = Crypto.new()
 var _algorithm: JWTAlgorithm
 var header_claims: Dictionary = {alg = "", typ = "JWT"}
 var payload_claims: Dictionary
-var secret: String
 
 
 func _init(
