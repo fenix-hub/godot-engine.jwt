@@ -69,14 +69,14 @@ func with_claim_presence(claim_name: String) -> JWTVerifierBuilder:
 
 
 func _add_leeway() -> void:
-	if not claims.has(JWTClaims.Public.EXPIRES_AT):
-		claims[JWTClaims.Public.EXPIRES_AT] = self._leeway
-	if not claims.has(JWTClaims.Public.NOT_BEFORE):
-		claims[JWTClaims.Public.NOT_BEFORE] = self._leeway
-	if not claims.has(JWTClaims.Public.ISSUED_AT):
-		claims[JWTClaims.Public.ISSUED_AT] = self._leeway
-	if _ignore_issued_at:
-		claims.erase(JWTClaims.Public.ISSUED_AT)
+	if not self.claims.has(JWTClaims.Public.EXPIRES_AT):
+		self.claims[JWTClaims.Public.EXPIRES_AT] = self._leeway
+	if not self.claims.has(JWTClaims.Public.NOT_BEFORE):
+		self.claims[JWTClaims.Public.NOT_BEFORE] = self._leeway
+	if not self.claims.has(JWTClaims.Public.ISSUED_AT):
+		self.claims[JWTClaims.Public.ISSUED_AT] = self._leeway
+	if self._ignore_issued_at:
+		self.claims.erase(JWTClaims.Public.ISSUED_AT)
 
 
 func build(clock: int = int(Time.get_unix_time_from_system())) -> JWTVerifier:

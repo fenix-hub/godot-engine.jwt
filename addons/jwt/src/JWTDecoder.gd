@@ -103,4 +103,4 @@ func get_signature() -> String:
 
 
 func get_token() -> String:
-	return "%s.%s.%s" % parts
+	return "%s.%s.%s" % self.parts

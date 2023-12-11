@@ -31,7 +31,7 @@ func verify_algorithm(jwt_decoder: JWTDecoder, algorithm: JWTAlgorithm) -> bool:
 
 func verify_signature(jwt_decoder: JWTDecoder) -> bool:
 	self.exception = "The provided Algorithm doesn't match the one used to sign the JWT."
-	return _algorithm.verify(jwt_decoder)
+	return self._algorithm.verify(jwt_decoder)
 
 
 func verify_claim_values(jwt_decoder: JWTDecoder, expected_claims: Dictionary) -> bool:
@@ -132,7 +132,7 @@ func verify(jwt: String) -> JWTExceptions:
 		return JWTExceptions.INVALID_HEADER
 	if not assert_valid_payload(self._jwt_decoder):
 		return JWTExceptions.INVALID_PAYLOAD
-	if not verify_algorithm(self._jwt_decoder, _algorithm):
+	if not verify_algorithm(self._jwt_decoder, self._algorithm):
 		return JWTExceptions.ALGORITHM_MISMATCHING
 	if not verify_signature(self._jwt_decoder):
 		return JWTExceptions.INVALID_SIGNATURE
