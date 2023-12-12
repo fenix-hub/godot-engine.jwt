@@ -11,11 +11,13 @@ enum JWTExceptions {
 	CLAIM_NOT_VALID
 }
 
+var exception: String
+
+
 var _jwt_decoder: JWTDecoder
 var _algorithm: JWTAlgorithm
 var _claims: Dictionary
 var _clock: int
-var exception: String
 
 
 func _init(algorithm: JWTAlgorithm, claims: Dictionary, clock: int):
