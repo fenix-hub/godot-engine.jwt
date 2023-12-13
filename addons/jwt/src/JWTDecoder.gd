@@ -7,11 +7,11 @@ var _payload_claims: Dictionary = {}
 
 
 func _init(jwt: String):
-	self.parts = jwt.split(".")
-	var header: PackedByteArray = JWTUtils.urlsafe_b64decode(self.parts[0])
-	var payload: PackedByteArray = JWTUtils.urlsafe_b64decode(self.parts[1])
-	self.header_claims = _parse_json(header.get_string_from_utf8())
-	self.payload_claims = _parse_json(payload.get_string_from_utf8())
+	self._parts = jwt.split(".")
+	var header: PackedByteArray = JWTUtils.urlsafe_b64decode(self._parts[0])
+	var payload: PackedByteArray = JWTUtils.urlsafe_b64decode(self._parts[1])
+	self._header_claims = _parse_json(header.get_string_from_utf8())
+	self._payload_claims = _parse_json(payload.get_string_from_utf8())
 
 
 func _parse_json(field) -> Dictionary:

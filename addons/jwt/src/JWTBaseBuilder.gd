@@ -3,22 +3,22 @@ extends RefCounted
 
 
 func with_header(header_claims: Dictionary) -> JWTBaseBuilder:
-	self.header_claims = header_claims
+	self._header_claims = header_claims
 	return self
 
 
 func with_algorithm(algorithm: String) -> JWTBaseBuilder:
-	self.header_claims[JWTClaims.Public.ALGORITHM] = algorithm
+	self._header_claims[JWTClaims.Public.ALGORITHM] = algorithm
 	return self
 
 
 func with_type(type: String) -> JWTBaseBuilder:
-	self.header_claims[JWTClaims.Public.TYPE] = type
+	self._header_claims[JWTClaims.Public.TYPE] = type
 	return self
 
 
 func with_key_id(key_id: String) -> JWTBaseBuilder:
-	self.header_claims[JWTClaims.Public.KEY_ID] = key_id
+	self._header_claims[JWTClaims.Public.KEY_ID] = key_id
 	return self
 
 
@@ -56,7 +56,7 @@ func with_issued_at(issued_at: int) -> JWTBaseBuilder:
 
 
 func with_jwt_id(jwt_id: String) -> JWTBaseBuilder:
-	self.header_claims[JWTClaims.Public.JWT_ID] = jwt_id
+	self._header_claims[JWTClaims.Public.JWT_ID] = jwt_id
 	return self
 
 

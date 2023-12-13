@@ -45,10 +45,10 @@ func sign(algorithm: JWTAlgorithm = null) -> String:
 	assert(algorithm != null, "Can't sign a JWT without an Algorithm")
 	with_algorithm(algorithm.get_name())
 	var header: String = JWTUtils.urlsafe_b64encode(
-		JSON.stringify(self.header_claims).to_utf8_buffer()
+		JSON.stringify(self._header_claims).to_utf8_buffer()
 	)
 	var payload: String = JWTUtils.urlsafe_b64encode(
-		JSON.stringify(self.payload_claims).to_utf8_buffer()
+		JSON.stringify(self._payload_claims).to_utf8_buffer()
 	)
 	var signature_bytes: PackedByteArray = algorithm.sign(header + "." + payload)
 	var signature: String = JWTUtils.urlsafe_b64encode(signature_bytes)
