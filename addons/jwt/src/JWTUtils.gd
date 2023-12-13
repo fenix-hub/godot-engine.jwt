@@ -2,11 +2,11 @@ class_name JWTUtils
 extends RefCounted
 
 
-static func base64URL_encode(input: PackedByteArray) -> String:
+static func urlsafe_b64encode(input: PackedByteArray) -> String:
 	return Marshalls.raw_to_base64(input).replacen("+", "-").replacen("/", "_").replacen("=", "")
 
 
-static func base64URL_decode(input: String) -> PackedByteArray:
+static func urlsafe_b64decode(input: String) -> PackedByteArray:
 	match input.length() % 4:
 		2:
 			input += "=="

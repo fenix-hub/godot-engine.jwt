@@ -36,7 +36,7 @@ class HSA1:
 	func verify(jwt: JWTDecoder) -> bool:
 		var payload: String = jwt.get_header() + "." + jwt.get_payload()
 		var signature_bytes := self.sign(payload)
-		return jwt.get_signature() == JWTUtils.base64URL_encode(signature_bytes)
+		return jwt.get_signature() == JWTUtils.urlsafe_b64encode(signature_bytes)
 
 
 class HS256:
@@ -56,7 +56,7 @@ class HS256:
 	func verify(jwt: JWTDecoder) -> bool:
 		var payload: String = jwt.get_header() + "." + jwt.get_payload()
 		var signature_bytes := self.sign(payload)
-		return jwt.get_signature() == JWTUtils.base64URL_encode(signature_bytes)
+		return jwt.get_signature() == JWTUtils.urlsafe_b64encode(signature_bytes)
 
 
 class RS256:
@@ -79,5 +79,5 @@ class RS256:
 	func verify(jwt: JWTDecoder) -> bool:
 		var crypto := Crypto.new()
 		var payload: PackedByteArray = (jwt.get_header() + "." + jwt.get_payload()).sha256_buffer()
-		var signature: PackedByteArray = JWTUtils.base64URL_decode(jwt.get_signature())
+		var signature: PackedByteArray = JWTUtils.urlsafe_b64decode(jwt.get_signature())
 		return crypto.verify(HashingContext.HASH_SHA256, payload, signature, self._public_key)
