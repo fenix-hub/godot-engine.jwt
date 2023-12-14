@@ -112,10 +112,7 @@ func assert_claim_value(jwt_decoder: JWTDecoder, claim: String) -> bool:
 func assert_valid_date_claim(date: int, leeway: int, should_be_future: bool) -> bool:
 	if date == null:
 		return true
-	if should_be_future:
-		return (self._clock - leeway) < date
-	else:
-		return (self._clock + leeway) > date
+	return (self._clock - leeway) < date if should_be_future else (self._clock + leeway) > date
 
 
 func assert_valid_header(jwt_decoder: JWTDecoder) -> bool:
