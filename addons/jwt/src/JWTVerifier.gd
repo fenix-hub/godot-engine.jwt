@@ -67,7 +67,11 @@ func verify_claim_values(jwt_decoder: JWTDecoder, expected_claims: Dictionary) -
 					)
 					return false
 			JWTClaims.Public.ISSUER:
-				if not jwt_decoder.get_issuer() == expected_claims.get(claim):
+				var expected = expected_claims.get(claim)
+				var actual := jwt_decoder.get_issuer()
+				if typeof(expected) == TYPE_STRING:
+					expected = PackedStringArray([expected])
+				if not expected.has(actual):
 					self.exception = "The Claim 'iss' value doesn't match the required issuer."
 					return false
 			JWTClaims.Public.JWT_ID:
