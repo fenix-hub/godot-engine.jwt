@@ -6,7 +6,6 @@ jobs:
   test:
     name: Execute Testsuite
     runs-on: ubuntu-latest
-
     steps:
       # Change @main to a specific commit SHA or version tag, e.g.:
       # actions/hello-world-docker-action@e76147da8e5c81eaf017dede5645551d4b94427b
@@ -18,6 +17,8 @@ jobs:
           who-to-greet: ${{ inputs.who-to-greet }}
 
   comment-pr:
+    name: Add Report
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
