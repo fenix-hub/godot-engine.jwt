@@ -1,13 +1,6 @@
 name: Godot Engine JWT - Testing
 
-on:
-  workflow_dispatch:
-    inputs:
-      who-to-greet:
-        description: Who to greet in the log
-        required: true
-        default: 'World'
-        type: string
+on: [push]
 
 jobs:
   say-hello:
