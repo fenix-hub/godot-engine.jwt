@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   test:
-    name: Test and Publish
+    name: Execute Testsuite
     runs-on: ubuntu-latest
 
     steps:
