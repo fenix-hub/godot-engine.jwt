@@ -1,6 +1,6 @@
 name: Godot Engine JWT - Testing
 
-on: [push]
+on: [pull_request]
 
 jobs:
   test:
@@ -16,3 +16,15 @@ jobs:
         uses: fenix-hub/gd-jwt-testing@main
         with:
           who-to-greet: ${{ inputs.who-to-greet }}
+
+  comment-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            **Hello**
+            🌏
+            !
