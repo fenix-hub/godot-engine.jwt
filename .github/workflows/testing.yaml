@@ -6,6 +6,9 @@ jobs:
   test:
     name: Execute Testsuite
     runs-on: ubuntu-latest
+    outputs:
+      table: ${{ steps.test-library.outputs.table }}
+      passed: ${{ steps.test-library.outputs.passed }}
     steps:
       - name: Test library
         id: test-library
@@ -20,4 +23,4 @@ jobs:
     steps:
       - uses: mshick/add-pr-comment@v2
         with:
-          message: ${{ jobs.test.outputs.table }}"
+          message: ${{ needs.test.outputs.table }}"
