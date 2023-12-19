@@ -10,8 +10,6 @@ jobs:
       - name: Test library
         id: test-library
         uses: fenix-hub/gd-jwt-testing@main
-        with:
-          who-to-greet: ${{ inputs.who-to-greet }}
 
   comment-pr:
     name: Add Report
@@ -22,4 +20,4 @@ jobs:
     steps:
       - uses: mshick/add-pr-comment@v2
         with:
-          message: ${{ steps.hello.outputs.table }}"
+          message: ${{ steps.test-library.outputs.table }}"
