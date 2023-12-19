@@ -7,9 +7,6 @@ jobs:
     name: Execute Testsuite
     runs-on: ubuntu-latest
     steps:
-      # Change @main to a specific commit SHA or version tag, e.g.:
-      # actions/hello-world-docker-action@e76147da8e5c81eaf017dede5645551d4b94427b
-      # actions/hello-world-docker-action@v1.2.3
       - name: Test library
         id: test-library
         uses: fenix-hub/gd-jwt-testing@main
