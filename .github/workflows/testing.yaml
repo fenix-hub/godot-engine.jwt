@@ -15,6 +15,7 @@ jobs:
         uses: fenix-hub/gd-jwt-testing@main
 
   comment-pr:
+    if: always()
     name: Add Report
     needs: test
     runs-on: ubuntu-latest
