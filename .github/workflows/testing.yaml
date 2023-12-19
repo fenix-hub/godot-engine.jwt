@@ -25,7 +25,4 @@ jobs:
     steps:
       - uses: mshick/add-pr-comment@v2
         with:
-          message: |
-            **Hello**
-            🌏
-            !
+          message: ${{ steps.hello.outputs.table }}"
