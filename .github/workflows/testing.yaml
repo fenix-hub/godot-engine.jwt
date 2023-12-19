@@ -20,4 +20,4 @@ jobs:
     steps:
       - uses: mshick/add-pr-comment@v2
         with:
-          message: ${{ steps.test-library.outputs.table }}"
+          message: ${{ jobs.test.outputs.table }}"
