@@ -28,6 +28,7 @@ jobs:
           message: |
             Summary:  
             ${{ needs.test.outputs.table }}  
-            Failures:
+              
+            Failures:  
             ${{ needs.test.outputs.failures }}
             
