@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       table: ${{ steps.test-library.outputs.table }}
+      failures: ${{ steps.test-library.outputs.failures }}
       passed: ${{ steps.test-library.outputs.passed }}
     steps:
       - name: Test library
@@ -24,4 +25,9 @@ jobs:
     steps:
       - uses: mshick/add-pr-comment@v2
         with:
-          message: ${{ needs.test.outputs.table }}"
+          message: |
+            Summary:  
+            ${{ needs.test.outputs.table }}  
+            Failures:
+            ${{ needs.test.outputs.failures }}
+            
