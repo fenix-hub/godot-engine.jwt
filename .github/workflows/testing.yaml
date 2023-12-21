@@ -1,0 +1,34 @@
+name: Godot Engine JWT - Testing
+
+on: [pull_request]
+
+jobs:
+  test:
+    name: Execute Testsuite
+    runs-on: ubuntu-latest
+    outputs:
+      table: ${{ steps.test-library.outputs.table }}
+      failures: ${{ steps.test-library.outputs.failures }}
+      passed: ${{ steps.test-library.outputs.passed }}
+    steps:
+      - name: Test library
+        id: test-library
+        uses: fenix-hub/gd-jwt-testing@main
+
+  comment-pr:
+    if: always()
+    name: Add Report
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            Summary:  
+            ${{ needs.test.outputs.table }}  
+              
+            Failures:  
+            ${{ needs.test.outputs.failures }}
+            
