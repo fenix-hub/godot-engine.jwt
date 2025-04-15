@@ -35,6 +35,10 @@ func verify_signature(jwt_decoder: JWTDecoder) -> bool:
 	self.exception = "The provided Algorithm doesn't match the one used to sign the JWT."
 	return self._algorithm.verify(jwt_decoder)
 
+func verify_expiration(jwt_decoder: JWTDecoder) -> bool:
+	self.exception = "The Token has expired."
+	return jwt_decoder.get_expires_at() > self._clock
+
 
 func verify_claim_values(jwt_decoder: JWTDecoder, expected_claims: Dictionary) -> bool:
 	for claim in expected_claims.keys():
@@ -139,6 +143,8 @@ func verify(jwt: String) -> JWTExceptions:
 		return JWTExceptions.ALGORITHM_MISMATCHING
 	if not verify_signature(self._jwt_decoder):
 		return JWTExceptions.INVALID_SIGNATURE
+	if not verify_expiration(self._jwt_decoder):
+		return JWTExceptions.TOKEN_EXPIRED
 	if not verify_claim_values(self._jwt_decoder, self._claims):
 		return JWTExceptions.CLAIM_NOT_VALID
 	self.exception = ""
